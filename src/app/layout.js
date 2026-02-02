@@ -1,12 +1,13 @@
 import { Geist, Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 import NavbarWrapper from "../../components/NavbarWrapper";
+import CustomCursor from "../../components/CustomCursor";
 
 // 1. Orbitron Font Setup (Robotic Look ke liye)
 const orbitron = Orbitron({
   variable: "--font-orbitron",
   subsets: ["latin"],
-  display: "swap", 
+  display: "swap",
 });
 
 const geistSans = Geist({
@@ -42,7 +43,8 @@ export default function RootLayout({ children }) {
           text-white         /* White text default */
         `}
       >
-        <NavbarWrapper/>
+        <CustomCursor />
+        <NavbarWrapper />
         {children}
       </body>
     </html>

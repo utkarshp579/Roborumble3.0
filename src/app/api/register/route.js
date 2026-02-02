@@ -16,9 +16,9 @@ export async function POST(req) {
     // Save registration to MongoDB
     const newUser = await User.create(body);
 
-    return NextResponse.json({ 
-      message: "Registration Successful!", 
-      data: newUser 
+    return NextResponse.json({
+      message: "Registration Successful!",
+      data: newUser
     }, { status: 201 });
 
   } catch (error) {

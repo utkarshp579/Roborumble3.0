@@ -9,7 +9,7 @@ const initialEvents = [
     title: "ROBO WAR",
     description: "Combat robotics championship. Destroy the opponent in our arena.",
     prize: "20,000",
-    image: "/images/robo-war.jpeg", 
+    image: "/images/robo-war.jpeg",
     link: "/events"
   },
   {
@@ -42,17 +42,17 @@ const EventsSection = () => {
   const [events, setEvents] = useState(initialEvents);
 
   const handleCardClick = (index) => {
-    if (index === 0) return; 
+    if (index === 0) return;
     const newOrder = [
-      ...events.slice(index),    
-      ...events.slice(0, index)  
+      ...events.slice(index),
+      ...events.slice(0, index)
     ];
     setEvents(newOrder);
   };
 
   return (
     <section className="bg-[#020410] py-10 md:py-20 px-4 min-h-screen flex flex-col justify-center items-center font-orbitron overflow-hidden relative">
-      
+
       {/* Background Glow */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#00ff9f]/5 to-transparent pointer-events-none"></div>
 
@@ -67,7 +67,7 @@ const EventsSection = () => {
       </div>
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        
+
         {/* === CONTENT SIDE === 
             On Mobile: Appears below the gallery (order-2)
             On Desktop: Appears on the left (lg:order-1)
@@ -103,7 +103,7 @@ const EventsSection = () => {
           {events.map((event, index) => {
             const isActive = index === 0;
             return (
-              <div 
+              <div
                 key={event.id}
                 onClick={() => handleCardClick(index)}
                 className={`
@@ -115,18 +115,18 @@ const EventsSection = () => {
                 style={{ zIndex: 10 - index }}
               >
                 <div className="absolute inset-0 h-full w-full transform skew-x-6 md:skew-x-12 scale-150">
-                    <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
-                    <div className={`absolute inset-0 bg-black transition-opacity ${isActive ? 'opacity-10' : 'opacity-60'}`}></div>
+                  <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                  <div className={`absolute inset-0 bg-black transition-opacity ${isActive ? 'opacity-10' : 'opacity-60'}`}></div>
                 </div>
 
                 {!isActive && (
                   <div className="absolute bottom-10 left-0 w-full flex justify-center transform skew-x-6 md:skew-x-12">
-                     <h3 className="text-white text-[10px] md:text-xs font-bold uppercase [writing-mode:vertical-lr] md:[writing-mode:horizontal-tb]">
-                       {event.title}
-                     </h3>
+                    <h3 className="text-white text-[10px] md:text-xs font-bold uppercase [writing-mode:vertical-lr] md:[writing-mode:horizontal-tb]">
+                      {event.title}
+                    </h3>
                   </div>
                 )}
-                
+
                 {isActive && (
                   <div className="absolute inset-0 border-2 border-[#00ff9f] z-50 pointer-events-none shadow-[0_0_20px_rgba(0,255,159,0.4)]"></div>
                 )}

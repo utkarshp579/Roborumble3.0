@@ -2,115 +2,195 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { FaInstagram, FaFacebookF, FaLinkedinIn, FaYoutube, FaWhatsapp } from "react-icons/fa"
 
 /* ---------------- Navbar Component ---------------- */
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [menuKhula, setMenuKhula] = useState(false)
+  const [scrollHua, setScrollHua] = useState(false)
+  const konsiPage = usePathname()
 
   // Mobile Menu khulne par background scroll lock
   useEffect(() => {
-    if (isOpen) {
+    if (menuKhula) {
       document.body.style.overflow = "hidden"
     } else {
       document.body.style.overflow = "unset"
     }
-  }, [isOpen])
+  }, [menuKhula])
+
+  useEffect(() => {
+    const scrollCheck = () => {
+      setScrollHua(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", scrollCheck)
+    return () => window.removeEventListener("scroll", scrollCheck)
+  }, [])
+
+  const sabLinks = [
+    { href: "/", label: "HOME" },
+    { href: "/events", label: "EVENTS" },
+    { href: "/schedule", label: "SCHEDULE" },
+    { href: "/patrons", label: "PATRONS" },
+    { href: "/contacts", label: "OUR TEAM" },
+    { href: "/gallery", label: "GALLERY" },
+    { href: "/sponsors", label: "SPONSORS" },
+  ]
+
+  const socialLinks = [
+    { icon: <FaInstagram size={24} />, href: "#" },
+    { icon: <FaFacebookF size={24} />, href: "#" },
+    { icon: <FaLinkedinIn size={24} />, href: "#" },
+    { icon: <FaYoutube size={24} />, href: "#" },
+    { icon: <FaWhatsapp size={24} />, href: "#" },
+  ]
+
+  // Helper for animated text (Upar jaane wala effect)
+  const AnimatedText = ({ text, isActive }) => (
+    <div className="relative overflow-hidden h-5 flex flex-col items-center justify-start group-hover:justify-end">
+      {/* Original Text - Moves Up on Hover */}
+      <span className={`block transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:-translate-y-full ${isActive ? '-translate-y-full' : 'translate-y-0'}`}>
+        {text}
+      </span>
+
+      {/* Hover Text - Comes from Bottom */}
+      <span className={`absolute top-0 block transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:translate-y-0 text-[#FFD700] drop-shadow-[0_0_5px_rgba(255,215,0,0.5)] ${isActive ? 'translate-y-0' : 'translate-y-[120%]'}`}>
+        {text}
+      </span>
+    </div>
+  )
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[9999] w-full bg-[#000047]/95 backdrop-blur-md border-b border-[#00FF9E]/20 h-16 transition-all duration-300">
-      
-      <div className="w-full h-full px-4 md:px-10 flex items-center justify-between max-w-[100vw]">
-        
+    <nav className={`fixed top-0 left-0 right-0 z-[9999] w-full transition-all duration-500 ${scrollHua ? "bg-[#0a0a0a]/80 backdrop-blur-md shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]" : "bg-transparent"
+      }`}>
+
+      <div className="w-full h-20 px-4 md:px-8 lg:px-12 flex items-center justify-between">
+
         {/* LOGO SECTION */}
         <div className="flex items-center flex-shrink-0 z-[10001]">
           <Link href="/" className="flex items-center group">
-            <h1 className="font-black text-xs sm:text-base md:text-2xl uppercase tracking-normal md:tracking-widest text-white transition-transform duration-300 group-hover:scale-105 whitespace-nowrap">
-              Robo Rumble
-              <span className="ml-0.5 md:ml-2 text-[#00FF9E] drop-shadow-[0_0_8px_rgba(0,255,158,0.8)]">
-                26
+            <h1 className="font-black text-sm sm:text-lg md:text-xl uppercase tracking-widest text-white transition-all duration-300 group-hover:tracking-[0.3em]">
+              ROBO RUMBLE
+              <span className="ml-1 text-[#FFD700] drop-shadow-[0_0_8px_rgba(255,215,0,0.6)]">
+                '26
               </span>
             </h1>
           </Link>
         </div>
 
         {/* --- DESKTOP MENU --- */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs xl:text-sm font-bold tracking-[0.2em] uppercase">
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/events">Events</NavLink>
-          <NavLink href="/schedule">Schedule</NavLink>
-          <NavLink href="/patrons">Patrons</NavLink> 
-          <NavLink href="/contacts">Our Team</NavLink>
-          <NavLink href="/gallery">Gallery</NavLink>
-          <NavLink href="/register">Registration</NavLink>
-          <NavLink href="/sponsors">Sponsors</NavLink>
+        <div className="hidden lg:flex items-center gap-2">
+          {sabLinks.map((link) => {
+            const isActive = konsiPage === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`group relative px-6 py-2 rounded-full border transition-all duration-300 ease-out overflow-hidden
+                  ${isActive
+                    ? "bg-[#FFD700]/10 border-[#FFD700]/50 shadow-[0_0_20px_rgba(255,215,0,0.3)]"
+                    : "border-transparent hover:border-[#FFD700]/30 hover:bg-[#FFD700]/5 hover:shadow-[0_0_15px_rgba(255,215,0,0.2)]"
+                  }
+                `}
+              >
+                <div className="text-xs font-bold tracking-[0.15em] uppercase text-white/80">
+                  <AnimatedText text={link.label} isActive={isActive} />
+                </div>
+              </Link>
+            )
+          })}
+
+          <Link
+            href="/register"
+            className="ml-6 group relative px-6 py-2 text-xs font-bold tracking-[0.2em] uppercase text-white transition-all duration-300"
+          >
+            <span className="absolute -top-[2px] -left-[6px] text-white/50 transition-all duration-300 group-hover:text-[#FFD700] group-hover:-translate-x-1 group-hover:-translate-y-1">[</span>
+            <AnimatedText text="REGISTER" isActive={false} />
+            <span className="absolute -bottom-[2px] -right-[6px] text-white/50 transition-all duration-300 group-hover:text-[#FFD700] group-hover:translate-x-1 group-hover:translate-y-1">]</span>
+          </Link>
         </div>
 
         {/* --- HAMBURGER BUTTON --- */}
-        <button 
-          onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden z-[10001] relative w-6 h-5 flex flex-col justify-between items-end group flex-shrink-0 ml-auto"
+        <button
+          onClick={() => setMenuKhula(!menuKhula)}
+          className="lg:hidden z-[10001] relative w-10 h-10 flex flex-col justify-center items-center gap-1.5 group flex-shrink-0 rounded-full hover:bg-white/5 transition-colors"
         >
-          <span className={`h-[2px] w-full bg-[#00FF9E] rounded transition-all duration-300 ${isOpen ? "rotate-45 translate-y-[9px]" : ""}`} />
-          <span className={`h-[2px] w-2/3 bg-[#00FF9E] rounded transition-all duration-300 ${isOpen ? "opacity-0" : "group-hover:w-full"}`} />
-          <span className={`h-[2px] w-full bg-[#00FF9E] rounded transition-all duration-300 ${isOpen ? "-rotate-45 -translate-y-[9px]" : ""}`} />
+          <span className={`block h-[2px] w-6 bg-[#FFD700] rounded transition-all duration-300 origin-center ${menuKhula ? "rotate-45 translate-y-[5px]" : ""}`} />
+          <span className={`block h-[2px] w-4 bg-[#FFD700] rounded transition-all duration-300 ${menuKhula ? "opacity-0 scale-0" : "group-hover:w-6"}`} />
+          <span className={`block h-[2px] w-6 bg-[#FFD700] rounded transition-all duration-300 origin-center ${menuKhula ? "-rotate-45 -translate-y-[5px]" : ""}`} />
         </button>
 
         {/* --- MOBILE SIDE DRAWER --- */}
-        <div 
-          className={`fixed top-0 right-0 h-screen w-[75%] sm:w-[350px] bg-[#050510] z-[10000] transform transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] shadow-[-10px_0_30px_rgba(0,0,0,0.8)] ${
-            isOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        <div
+          className={`fixed top-0 right-0 h-screen w-full sm:w-[400px] bg-[#050505]/95 backdrop-blur-3xl z-[10000] transform transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] ${menuKhula ? "translate-x-0" : "translate-x-full"
+            }`}
         >
-            <div className="absolute inset-0 bg-gradient-to-b from-[#000047]/40 to-transparent pointer-events-none" />
+          {/* Glow Effects in Drawer */}
+          <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#FFD700]/10 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-[#00FF9E]/10 rounded-full blur-[80px] pointer-events-none" />
 
-            <div className="flex flex-col h-full pt-20 px-6 pb-10 overflow-y-auto">
-                <div className="flex flex-col gap-5 items-end text-right">
-                    <MobileNavLink href="/" onClick={() => setIsOpen(false)}>Home</MobileNavLink>
-                    <MobileNavLink href="/events" onClick={() => setIsOpen(false)}>Events</MobileNavLink>
-                    <MobileNavLink href="/schedule" onClick={() => setIsOpen(false)}>Schedule</MobileNavLink>
-                    <MobileNavLink href="/patrons" onClick={() => setIsOpen(false)}>Patrons</MobileNavLink>
-                    <MobileNavLink href="/our-team" onClick={() => setIsOpen(false)}>Our Team</MobileNavLink>
-                    <MobileNavLink href="/gallery" onClick={() => setIsOpen(false)}>Gallery</MobileNavLink>
-                    <MobileNavLink href="/register" onClick={() => setIsOpen(false)}>Registration</MobileNavLink>
-                    <MobileNavLink href="/sponsors" onClick={() => setIsOpen(false)}>Sponsors</MobileNavLink>
-                </div>
+          <div className="flex flex-col h-full pt-32 px-10 pb-8">
+            <div className="flex flex-col gap-6 items-end text-right">
+              {sabLinks.map((link, i) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuKhula(false)}
+                  className={`group flex items-center justify-end gap-4 text-xl font-medium tracking-[0.2em] uppercase transition-all duration-300 ${konsiPage === link.href ? "text-[#FFD700]" : "text-white/60 hover:text-white"
+                    }`}
+                  style={{ transitionDelay: `${i * 50}ms` }}
+                >
+                  <span className="relative overflow-hidden">
+                    <span className="block transition-transform duration-300 group-hover:-translate-y-full">{link.label}</span>
+                    <span className="absolute top-0 right-0 block text-[#FFD700] transition-transform duration-300 translate-y-full group-hover:translate-y-0">{link.label}</span>
+                  </span>
+                  <span className={`h-[1px] bg-[#FFD700] transition-all duration-300 ${konsiPage === link.href ? "w-8" : "w-0 group-hover:w-4"}`} />
+                </Link>
+              ))}
+
+              <Link
+                href="/register"
+                onClick={() => setMenuKhula(false)}
+                className="mt-4 px-8 py-3 bg-[#FFD700] text-[#0a0a0a] text-sm font-bold tracking-[0.2em] uppercase hover:bg-white transition-colors duration-300 clip-path-polygon"
+                style={{ clipPath: "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)" }}
+              >
+                REGISTER NOW
+              </Link>
             </div>
+
+            {/* --- SOCIAL FOOTER --- */}
+            <div className="mt-auto flex flex-col items-center gap-4">
+              <h3 className="text-[#FFD700] text-sm tracking-[0.3em] font-light">FOLLOW US</h3>
+              <div className="flex items-center gap-6">
+                {socialLinks.map((social, i) => (
+                  <Link
+                    key={i}
+                    href={social.href}
+                    className="text-white/60 hover:text-[#FFD700] transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_8px_#FFD700]"
+                  >
+                    {social.icon}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-        
+
         {/* Black Overlay */}
-        {isOpen && (
-            <div 
-                className="fixed inset-0 bg-black/80 z-[9999] lg:hidden backdrop-blur-[4px] transition-opacity duration-500"
-                onClick={() => setIsOpen(false)}
-            />
+        {menuKhula && (
+          <div
+            className="fixed inset-0 bg-black/60 z-[9999] lg:hidden backdrop-blur-[2px] transition-opacity duration-500"
+            onClick={() => setMenuKhula(false)}
+          />
         )}
       </div>
+
+      {/* Bottom Border Line with Glow */}
+      <div className={`w-full h-[1px] transition-all duration-500 ${scrollHua
+          ? "bg-gradient-to-r from-transparent via-[#FFD700]/50 to-transparent shadow-[0_0_10px_#FFD700]"
+          : "bg-gradient-to-r from-transparent via-white/10 to-transparent"
+        }`} />
     </nav>
-  )
-}
-
-/* ---------------- Helper Components ---------------- */
-
-// FIX: className ko Single Line mein convert kar diya hai taaki error na aaye
-function NavLink({ href, children }) {
-  return (
-    <Link 
-      href={href} 
-      className="relative px-4 py-2 rounded-md transition-all duration-300 ease-out text-white/80 border border-transparent hover:text-[#00FF9E] hover:border-[#00FF9E]/30 hover:bg-gradient-to-b hover:from-[#00FF9E]/20 hover:to-transparent hover:shadow-[0_0_15px_rgba(0,255,158,0.2),inset_0_0_10px_rgba(0,255,158,0.05)] hover:-translate-y-0.5"
-    >
-      {children}
-    </Link>
-  )
-}
-
-function MobileNavLink({ href, onClick, children }) {
-  return (
-    <Link 
-      href={href} 
-      onClick={onClick}
-      className="text-white font-bold text-lg sm:text-xl tracking-[0.1em] uppercase hover:text-[#00FF9E] transition-all duration-300 hover:tracking-[0.2em] hover:drop-shadow-[0_0_5px_#00FF9E]"
-    >
-      {children}
-    </Link>
   )
 }

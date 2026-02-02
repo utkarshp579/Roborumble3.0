@@ -25,7 +25,7 @@ const teamImages = [
 
 const GlassCard = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentImages, setCurrentImages] = useState([]); 
+  const [currentImages, setCurrentImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -74,7 +74,7 @@ const GlassCard = () => {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center overflow-y-auto overflow-x-hidden pb-20" suppressHydrationWarning={true}>
-      
+
       <style>
         {`
           @keyframes float {
@@ -89,13 +89,13 @@ const GlassCard = () => {
 
       {/* --- LIGHTBOX --- */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-sm transition-opacity duration-300"
           onClick={closeGallery}
         >
-          
+
           {/* Left Arrow */}
-          <button 
+          <button
             onClick={prevImage}
             className="absolute left-4 md:left-10 text-white/70 hover:text-[#ccff00] p-4 rounded-full bg-white/5 hover:bg-white/10 transition-all z-[10000] hidden md:block border border-white/10"
           >
@@ -104,12 +104,12 @@ const GlassCard = () => {
 
           {/* === Main Image Container === */}
           {/* Button ab iske andar hai, isliye 'relative' class zaroori hai */}
-          <div 
+          <div
             className="relative max-w-6xl max-h-[90vh] p-1 mx-4 z-[9999]"
             onClick={(e) => e.stopPropagation()}
           >
-             
-            <button 
+
+            <button
               onClick={closeGallery}
               className="absolute top-4 right-4 z-[10010] bg-white text-black p-2 rounded-full shadow-lg hover:bg-gray-200 transition-all cursor-pointer hover:scale-110"
               title="Close Gallery"
@@ -120,9 +120,9 @@ const GlassCard = () => {
               </svg>
             </button>
 
-            <img 
-              src={currentImages[currentIndex]} 
-              alt="Gallery Preview" 
+            <img
+              src={currentImages[currentIndex]}
+              alt="Gallery Preview"
               className="max-h-[85vh] w-auto object-contain rounded-lg shadow-2xl border border-white/10 bg-[#020617]"
             />
             {/* Counter */}
@@ -132,7 +132,7 @@ const GlassCard = () => {
           </div>
 
           {/* Right Arrow */}
-          <button 
+          <button
             onClick={nextImage}
             className="absolute right-4 md:right-10 text-white/70 hover:text-[#ccff00] p-4 rounded-full bg-white/5 hover:bg-white/10 transition-all z-[10000] hidden md:block border border-white/10"
           >
@@ -154,7 +154,7 @@ const GlassCard = () => {
               Robo Rumble <span className="text-[#ff5722]">2025</span>
             </h1>
             <div className="mt-2 animate-bounce cursor-pointer hover:text-gray-300 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7" /></svg>
             </div>
           </div>
         </div>
@@ -164,17 +164,17 @@ const GlassCard = () => {
       {/* SECTION 2: EVENTS CARD */}
       <div className="w-full max-w-6xl px-4 mb-20 z-10">
         <div className="flex flex-col md:flex-row bg-[#020617]/80 backdrop-blur-xl border border-[#0bb43e] shadow-[0_0_15px_rgba(11,180,62,0.3)] rounded-3xl overflow-hidden min-h-[400px] transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(11,180,62,0.6)]" suppressHydrationWarning={true}>
-          
+
           <div className="w-full md:w-1/2 p-4 grid grid-cols-2 gap-2">
-             <div className="col-span-2 h-48 md:h-60 bg-gray-800 rounded-xl overflow-hidden">
-                <img src={eventImages[0]} alt="Event Group" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-             </div>
-             <div className="h-40 bg-gray-800 rounded-xl overflow-hidden">
-                <img src={eventImages[1]} alt="Event Activity" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-             </div>
-             <div className="h-40 bg-gray-800 rounded-xl overflow-hidden">
-                <img src={eventImages[2]} alt="Event Robot" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-             </div>
+            <div className="col-span-2 h-48 md:h-60 bg-gray-800 rounded-xl overflow-hidden">
+              <img src={eventImages[0]} alt="Event Group" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+            </div>
+            <div className="h-40 bg-gray-800 rounded-xl overflow-hidden">
+              <img src={eventImages[1]} alt="Event Activity" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+            </div>
+            <div className="h-40 bg-gray-800 rounded-xl overflow-hidden">
+              <img src={eventImages[2]} alt="Event Robot" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+            </div>
           </div>
 
           <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center text-left">
@@ -182,10 +182,10 @@ const GlassCard = () => {
               Events
             </h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              Exciting competitions and opportunities to showcase your talent. 
+              Exciting competitions and opportunities to showcase your talent.
               Witness the clash of metal and code as robots battle for supremacy.
             </p>
-            <button 
+            <button
               onClick={() => openGallery('events')}
               className="w-fit px-8 py-3 rounded-full border border-purple-500 text-white font-semibold tracking-wider hover:bg-purple-500/20 transition-all duration-300 shadow-[0_0_10px_rgba(168,85,247,0.5)] active:scale-95"
             >
@@ -199,17 +199,17 @@ const GlassCard = () => {
       {/* SECTION 3: TEAM CARD */}
       <div className="w-full max-w-6xl px-4 mb-32 z-10">
         <div className="flex flex-col md:flex-row-reverse bg-[#020617]/80 backdrop-blur-xl border border-[#0bb43e] shadow-[0_0_15px_rgba(11,180,62,0.3)] rounded-3xl overflow-hidden min-h-[400px] transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(11,180,62,0.6)]" suppressHydrationWarning={true}>
-          
+
           <div className="w-full md:w-1/2 p-4 grid grid-cols-2 gap-2">
-             <div className="h-40 bg-gray-800 rounded-xl overflow-hidden">
-                <img src={teamImages[0]} alt="Team Work" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-             </div>
-             <div className="h-40 bg-gray-800 rounded-xl overflow-hidden">
-                <img src={teamImages[1]} alt="Team Discussion" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-             </div>
-             <div className="col-span-2 h-48 md:h-60 bg-gray-800 rounded-xl overflow-hidden">
-                <img src={teamImages[2]} alt="Full Team" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"/>
-             </div>
+            <div className="h-40 bg-gray-800 rounded-xl overflow-hidden">
+              <img src={teamImages[0]} alt="Team Work" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+            </div>
+            <div className="h-40 bg-gray-800 rounded-xl overflow-hidden">
+              <img src={teamImages[1]} alt="Team Discussion" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+            </div>
+            <div className="col-span-2 h-48 md:h-60 bg-gray-800 rounded-xl overflow-hidden">
+              <img src={teamImages[2]} alt="Full Team" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+            </div>
           </div>
 
           <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center text-left">
@@ -217,10 +217,10 @@ const GlassCard = () => {
               Team
             </h2>
             <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-              Meet the minds behind the magic. A group of dedicated individuals 
+              Meet the minds behind the magic. A group of dedicated individuals
               working tirelessly to make this event a grand success.
             </p>
-            <button 
+            <button
               onClick={() => openGallery('team')}
               className="w-fit px-8 py-3 rounded-full border border-purple-500 text-white font-semibold tracking-wider hover:bg-purple-500/20 transition-all duration-300 shadow-[0_0_10px_rgba(168,85,247,0.5)] active:scale-95"
             >

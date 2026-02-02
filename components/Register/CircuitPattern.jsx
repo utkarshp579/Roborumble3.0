@@ -16,13 +16,13 @@ const CircuitPattern = () => (
 const SciFiCard = ({ children }) => {
   return (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 overflow-hidden relative font-sans">
-      
+
       {/* 1. Background Layer */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-[#0f172a] to-[#020617] z-0"></div>
-      
+
       {/* 2. Circuit Pattern */}
       <CircuitPattern />
-      
+
       {/* 3. Main Content Wrapper (Form yahan aayega) */}
       <div className="relative z-10 w-full h-full flex justify-center items-center">
         {children}
