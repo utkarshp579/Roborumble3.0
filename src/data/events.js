@@ -130,7 +130,7 @@ export const events = [
        "Maintain decorum during the session.",
        "Venue: Main Auditorium."
     ],
-    image: "/images/Defence-talk.jpeg"
+    image: "/images/defence-talk.jpeg"
   },
   {
     id: "defence-expo",
@@ -147,7 +147,7 @@ export const events = [
       "Entry through valid techfest ID.",
       "Venue: Main Ground."
     ],
-    image: "/images/Defence-expo.jpeg"
+    image: "/images/defence-expo.jpeg"
   },
   {
     id: "line-follower",
