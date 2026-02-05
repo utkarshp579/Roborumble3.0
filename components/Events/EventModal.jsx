@@ -2,7 +2,7 @@
 "use client";
 import React from "react";
 import { X, Trophy, Users, FileText, Globe, Mic, MapPin } from "lucide-react";
-import Link from "next/link"; // <--- 1. Yahan Import karein
+import Link from "next/link";
 
 const EventModal = ({ event, onClose }) => {
   if (!event) return null;
@@ -13,9 +13,9 @@ const EventModal = ({ event, onClose }) => {
     <div className="fixed inset-0 z-[10005] flex items-center justify-center px-4 animate-in fade-in duration-200">
       
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
-        onClick={onClose} 
+        onClick={onClose}
       ></div>
 
       {/* Main Modal */}
@@ -36,7 +36,7 @@ const EventModal = ({ event, onClose }) => {
         {/* --- LEFT SIDE: IMAGE --- */}
         <div className="w-full md:w-[35%] lg:w-[40%] h-28 sm:h-56 md:h-auto relative bg-black">
           <div className="absolute inset-0 opacity-60">
-             <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+            <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f1014] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0f1014]"></div>
         </div>
@@ -75,6 +75,16 @@ const EventModal = ({ event, onClose }) => {
                   <span className="text-slate-200 font-bold text-[9px] sm:text-sm leading-none">{event.eligibility || "Open for All"}</span>
               </div>
             </div>
+
+            {!isCompetition && (
+              <div className="bg-[#1a1c23] border border-purple-500/30 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg flex items-center gap-1.5 sm:gap-3">
+                <Mic className="text-purple-400 shrink-0" size={12} />
+                <div className="min-w-0 flex-1">
+                  <span className="block text-[7px] sm:text-[10px] text-slate-500 uppercase font-bold tracking-tighter sm:tracking-normal">Type</span>
+                  <span className="text-purple-300 font-bold text-[9px] sm:text-sm leading-none uppercase">{event.type}</span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 mb-4 sm:mb-8">
@@ -118,7 +128,7 @@ const EventModal = ({ event, onClose }) => {
                   : "bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_20px_rgba(147,51,234,0.4)]"
                 }`}
             >
-               {isCompetition ? "Register Now" : "Book Seat"}
+              {isCompetition ? "Register Now" : "Book Seat"}
             </Link>
           </div>
         </div>

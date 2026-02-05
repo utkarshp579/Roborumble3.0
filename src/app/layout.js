@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono, Orbitron } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import NavbarWrapper from "../../components/NavbarWrapper";
 import CustomCursor from "../../components/CustomCursor";
@@ -28,31 +29,33 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`
-          ${geistSans.variable} 
-          ${geistMono.variable} 
-          ${orbitron.variable} 
-          antialiased 
-          
-          /* --- SCROLL & LAYOUT FIXES --- */
-          overflow-x-hidden  /* Horizontal scroll (hilna) band */
-          w-full             /* Full width ensure karega */
-          relative           /* Navbar positioning ke liye stable base */
-          bg-[#020617]       /* Dark background default */
-          text-white         /* White text default */
-          flex flex-col
-          min-h-screen
-        `}
-      >
-        <CustomCursor />
-        <NavbarWrapper />
-        <div className="flex-grow">
-          {children}
-        </div>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`
+            ${geistSans.variable} 
+            ${geistMono.variable} 
+            ${orbitron.variable} 
+            antialiased 
+            
+            /* --- SCROLL & LAYOUT FIXES --- */
+            overflow-x-hidden  /* Horizontal scroll (hilna) band */
+            w-full             /* Full width ensure karega */
+            relative           /* Navbar positioning ke liye stable base */
+            bg-[#020617]       /* Dark background default */
+            text-white         /* White text default */
+            flex flex-col
+            min-h-screen
+          `}
+        >
+          <CustomCursor />
+          <NavbarWrapper />
+          <div className="flex-grow">
+            {children}
+          </div>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
